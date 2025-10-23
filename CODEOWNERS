@@ -1,0 +1,10 @@
+# Default owner (update to GitHub handle once repo is hosted)
+*       @your-username
+
+# Documentation
+docs/   @your-username
+learnings/ @your-username
+
+# Config and CI
+.github/ @your-username
+CODEOWNERS @your-username

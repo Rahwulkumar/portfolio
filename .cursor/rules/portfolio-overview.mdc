@@ -1,0 +1,7 @@
+---
+description: Portfolio project blueprint
+tags:
+  - planning
+alwaysApply: true
+---
+Consult `docs/project-overview.md` for the full roadmap, tech stack, branching strategy, and quality gates that govern this portfolio project. Keep documentation updates in sync with that source of truth whenever major decisions change.
