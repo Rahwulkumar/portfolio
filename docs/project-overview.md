@@ -15,7 +15,7 @@ Create a personal portfolio platform that highlights ongoing work, daily coding 
 
 - Visitors quickly understand skills, current focus, and coding consistency.
 - Projects and blog posts are easy to browse, filter, and share.
-- Activity data stays fresh automatically without manual updates.
+- Activity data stays fresh automatically (GitHub) and remains easy to update manually (LeetCode).
 - Admin tasks (adding projects, adjusting metrics, drafting posts) are fast and safe.
 - The system operates comfortably on free or student-tier infrastructure.
 - Deployments are automated with reliable previews and quality gates.
@@ -29,8 +29,8 @@ Create a personal portfolio platform that highlights ongoing work, daily coding 
 | Animations     | Framer Motion (light touch)                                                    | Enhance hero + transitions without hurting perf.               |
 | Data & Auth    | Supabase (Postgres, RLS, Storage) + optional Prisma                            | Central source for projects, activity snapshots, admin assets. |
 | Auth           | NextAuth.js with GitHub OAuth allowlist                                        | Restrict admin portal; session handled server-side.            |
-| Automation     | GitHub Actions (CI, scheduled sync jobs)                                       | Lint/test/build on PRs, daily data ingestion.                  |
-| Activity APIs  | GitHub REST API v3, LeetCode GraphQL (cookie auth)                             | Normalized and cached in Supabase tables.                      |
+| Automation     | GitHub Actions (CI, scheduled sync jobs)                                       | Lint/test/build on PRs, daily GitHub ingestion.                |
+| Activity APIs  | GitHub REST API v3, manual LeetCode entry helpers                              | GitHub automated; LeetCode captured manually.                  |
 | Email          | Resend (free tier)                                                             | Contact form delivery + admin alerts.                          |
 | Analytics      | Vercel Analytics basic or Umami on Railway                                     | Privacy friendly, free-tier viable.                            |
 | Forms Security | hCaptcha                                                                       | Protect contact/admin forms.                                   |
@@ -42,7 +42,7 @@ Create a personal portfolio platform that highlights ongoing work, daily coding 
 | ----- | ---------------------------- | --------------------------------------------------------------------- |
 | 00    | `phase/00-discovery`         | Content inventory, personas, data requirements, sitemap, inspiration. |
 | 01    | `phase/01-foundation`        | Repo scaffold, tooling, base layout, shared UI primitives.            |
-| 02    | `phase/02-activity-services` | Supabase schema, API integrations, scheduled sync, caching.           |
+| 02    | `phase/02-activity-services` | Supabase schema, GitHub sync, manual LeetCode helpers, caching.       |
 | 03    | `phase/03-core-ui`           | Production-ready pages, activity visualizations, testing.             |
 | 04    | `phase/04-blog`              | MDX pipeline, feeds, content workflow docs.                           |
 | 05    | `phase/05-admin`             | Admin dashboard, GitHub OAuth, CRUD forms, audit logs.                |
@@ -59,10 +59,9 @@ Each phase gets its own long-lived branch merged sequentially into `main`. Featu
    - `src/lib/github.ts` exposes typed helpers; UI consumes cached API route.
 
 2. **LeetCode Progress**
-   - Scheduled script authenticates using session cookie secret.
-   - Retrieves streaks, solved counts by difficulty, recent problems.
-   - Writes to Supabase tables (`leetcode_daily`, `leetcode_topics`).
-   - Admin overrides logged in `activity_log` for manual corrections.
+   - Supabase tables (`leetcode_daily`, `leetcode_topics`) capture daily totals and notable problems.
+   - Entries are recorded manually via Supabase dashboard or future admin workflows.
+   - Automation jobs skip LeetCode to avoid cookie-based scraping; admin overrides logged in `activity_log`.
 
 3. **Projects & Blog**
    - Projects managed via admin dashboard (Supabase) with status + metadata.
@@ -71,8 +70,9 @@ Each phase gets its own long-lived branch merged sequentially into `main`. Featu
 
 4. **Contact Form**
    - Next.js route handler validates input (Zod), calls Resend, saves copy to Supabase.
-   - hCaptcha token validated server-side prior to processing.
-   - Admin dashboard shows submissions for follow-up.
+
+- hCaptcha token validated server-side prior to processing.
+- Admin dashboard shows submissions for follow-up.
 
 ## 6. Infrastructure Plan
 
@@ -96,7 +96,8 @@ Each phase gets its own long-lived branch merged sequentially into `main`. Featu
 - Dashboard sections: Overview metrics, Projects CRUD, Activity Overrides, Blog Manager, Settings.
 - Optimistic updates with TanStack Query + toasts.
 - Audit log tracks user, timestamp, payload diff for each mutation.
-- Manual refresh button triggers server action (rate-limited) to fetch latest activity.
+- Manual refresh button triggers server action (rate-limited) to fetch latest GitHub activity.
+- LeetCode inputs surfaced in an “Activity Overrides” screen for quick manual entry.
 
 ## 9. Launch Checklist Highlights
 
@@ -112,6 +113,6 @@ Each phase gets its own long-lived branch merged sequentially into `main`. Featu
 
 1. Begin Phase 00 tasks using `docs/phase-00-discovery.md`.
 2. Populate GitHub Project board with issues derived from phase checklists.
-3. Collect API credentials (GitHub PAT, LeetCode cookie, Supabase keys).
+3. Collect API credentials (GitHub PAT, Supabase keys). Note: LeetCode progress entered manually for now.
 4. Schedule design inspiration session prior to Phase 03.
 5. Keep this document updated as decisions evolve—treat it as the project’s living handbook.
