@@ -76,6 +76,17 @@ Track status in `docs/tasks.md` and `learnings/setup-notes.md`.
 - `docs/setup.md` - local setup instructions
 - `docs/mcp-setup.md` - how to provision MCP tokens
 - `learnings/setup-notes.md` - log of commands, reasoning, and lessons
+- `supabase/migrations/` - database schema managed via SQL migrations
+
+## Automation
+
+Run the data sync manually (GitHub + LeetCode ingestion) with:
+
+```bash
+pnpm sync:activity
+```
+
+A scheduled workflow (`.github/workflows/activity-sync.yml`) runs the same command nightly once repository secrets are in place. LeetCode progress is tracked manually via Supabase/admin tools until the Phase 05 dashboard is available.
 
 ## MCP Servers
 

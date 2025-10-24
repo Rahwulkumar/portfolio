@@ -26,10 +26,10 @@ Use this checklist as the working backlog for the portfolio platform. All tasks 
 
 ## Phase 02 - Activity Services (`phase/02-activity-services`)
 
-- [ ] Use `docs/phase-02-activity-services.md` to create Supabase schema migrations in `/supabase/migrations`.
-- [ ] Implement GitHub and LeetCode ingestion scripts (reference MCP servers `github`, `fetch`, `supabase`).
-- [ ] Configure GitHub Action workflow `activity-sync.yml`; add secrets as per `.cursor/mcp.json` placeholders.
-- [ ] Document manual refresh command in README and `docs/project-overview.md`.
+- [x] Use `docs/phase-02-activity-services.md` to create Supabase schema migrations in `/supabase/migrations`.
+- [x] Implement GitHub ingestion script and helper APIs for manual LeetCode logging (reference MCP servers `github`, `supabase`).
+- [x] Configure GitHub Action workflow `activity-sync.yml`; add secrets as per `.cursor/mcp.json` placeholders.
+- [x] Document manual refresh command in README and `docs/project-overview.md`.
 
 ## Phase 03 - Core UI (`phase/03-core-ui`)
 
