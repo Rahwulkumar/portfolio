@@ -1,4 +1,4 @@
-# Portfolio Project Task Board
+﻿# Portfolio Project Task Board
 
 Use this checklist as the working backlog for the portfolio platform. All tasks reference the living documentation in `/docs` and the Cursor rules under `.cursor/rules/`.
 
@@ -33,10 +33,10 @@ Use this checklist as the working backlog for the portfolio platform. All tasks 
 
 ## Phase 03 - Core UI (`phase/03-core-ui`)
 
-- [ ] Execute UI build tasks from `docs/phase-03-core-ui.md` on branch `phase/03-core-ui`.
+- [x] Execute UI build tasks from `docs/phase-03-core-ui.md` on branch `phase/03-core-ui`.
 - [ ] Utilize Shadcn MCP server for component references before implementing sections.
-- [ ] Implement activity visualizations consuming cached APIs.
-- [ ] Add RTL/Vitest suites for critical components.
+- [x] Implement activity visualizations consuming cached APIs.
+- [x] Add RTL/Vitest suites for critical components.
 - [ ] Update component notes under `docs/components/` (create directory if missing).
 
 ## Phase 04 - Blog (`phase/04-blog`)
