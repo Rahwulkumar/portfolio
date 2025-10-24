@@ -123,17 +123,19 @@ export async function loadProjects(): Promise<WithFallback<Project>> {
     if (error || !data) {
       throw error ?? new Error("Unable to fetch projects");
     }
-    return data.map((project) => ({
-      id: project.id,
-      name: project.name,
-      slug: project.slug,
-      summary: project.summary,
-      status: project.status,
-      repoUrl: project.repo_url,
-      liveUrl: project.live_url,
-      featured: project.featured,
-      tags: project.project_tags?.map((tag) => tag.tag) ?? [],
-    }));
+    return data.map(
+      (project: ProjectRow): Project => ({
+        id: project.id,
+        name: project.name,
+        slug: project.slug,
+        summary: project.summary,
+        status: project.status,
+        repoUrl: project.repo_url,
+        liveUrl: project.live_url,
+        featured: project.featured,
+        tags: project.project_tags?.map((tagObj: { tag: string }): string => tagObj.tag) ?? [],
+      }),
+    );
   }, fallbackProjects);
 }
 
